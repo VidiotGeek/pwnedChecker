@@ -9,7 +9,7 @@ For using this script, you have to be sure to have the following things:
 
 ## Usage
 
-The script usage is pretty simple. You can run it on Windows and Linux. For Windows, you can run:
+The script usage is pretty simple. It works both on Windows and Linux. For Windows, you can run:
 ```
 python pwnedChecker.py <arguments>
 ```
@@ -47,7 +47,7 @@ Checking emails from a file changing the output file name and including the unve
 
 ## Authors
 
-* **JosÈ ¡ngel Loarces** - [Linkedin](https://www.linkedin.com/in/jose-%C3%A1ngel-loarces-3bb722139/)
+* **Jos√© √Ångel Loarces** - [Linkedin](https://www.linkedin.com/in/jose-%C3%A1ngel-loarces-3bb722139/)
 
 ## License
 
