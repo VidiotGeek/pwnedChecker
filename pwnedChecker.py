@@ -1,21 +1,25 @@
-#!/usr/bin/python3
-# Author: Jose Angel Loarces
-# Contact: https://goo.gl/zfGmre
-# Last Update: 14/03/2019 (DD/MM/YY)
+#!/usr/bin/env python
+# Original Author: Jose Angel Loarces
+# Original Contact: https://goo.gl/zfGmre
+#
+# Fork Author: Matt Bailey
+# Last Update: 2024-02-03 (YYYY-MM-DD)
 
 import time
 import requests
 import argparse
 
+with open('private/apikey.txt', 'r') as file:
+    hibpkey = file.read().rstrip()
 
 def main():
 	# Arguments parse
-	parser = argparse.ArgumentParser(description="Pwned Checker - v1.0")
+	parser = argparse.ArgumentParser(description="Pwned Checker - v1.0.1")
 	parser.add_argument('-e', '--email', dest="email", help="Checks a single email", type=str)
 	parser.add_argument('-f', '--filename', dest="filename", help="Checks a list of emails given in a file (one per line)", type=str)
 	parser.add_argument('-o', '--output', dest="output", help="Changes the default output file name (pwned_log.txt)", type=str, default="pwned_log.txt")
 	parser.add_argument('-u', '--unverified', dest="unverified", help="Include unverified breaches too (boolean)", type=bool, default=False)
-	
+
 	args = parser.parse_args()
 
 	email = args.email
@@ -23,7 +27,7 @@ def main():
 	output = args.output
 	unverified = args.unverified
 
-	rate = 1.5	# Change it if needed, but this is the lowest secure value for working (https://haveibeenpwned.com/API/v2#RateLimiting)
+	rate = 7	# Change it if needed, but this is the lowest secure value for working (https://haveibeenpwned.com/API/v3#RateLimiting)
 
 	log = open(output, 'w')
 
@@ -56,8 +60,8 @@ def showResults(email, sites):
 	return s[:-1]
 
 def checkMail(email, unverified):
-	headers = {'User-Agent': 'Pwn-Checker-v1.0'}	# It must have an user agent (https://haveibeenpwned.com/API/v2#UserAgent)"
-	url = 'https://haveibeenpwned.com/api/v2/breachedaccount/{}?truncateResponse=true&includeUnverified={}'.format(email, str(unverified))
+	headers = {'User-Agent': 'Pwn-Checker-v1.0.1', 'hibp-api-key':(hibpkey)}	# It must have an user agent (https://haveibeenpwned.com/API/v3#UserAgent)"
+	url = 'https://haveibeenpwned.com/api/v3/breachedaccount/{}?truncateResponse=true&includeUnverified={}'.format(email, str(unverified))
 
 	r = requests.get(url, headers=headers)
 	# Request status codes (https://haveibeenpwned.com/API/v2#ResponseCodes)
